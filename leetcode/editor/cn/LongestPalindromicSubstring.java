@@ -53,9 +53,23 @@ public class LongestPalindromicSubstring {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestPalindrome(String s) {
+            String s3 = "";
+            String max = "";
+            for (int i = 0; i < s.length(); i++) {
+                String s1 = getPalindrome(s, i, i);
+                String s2 = getPalindrome(s, i, i + 1);
+                s3 = s1.length() > s2.length() ? s1 : s2;
+                max = s3.length() > max.length() ? s3 : max;
+            }
+            return max;
+        }
 
-
-
+        public String getPalindrome(String str, int l, int h) {
+            while (l >= 0 && h < str.length() && str.charAt(l) == str.charAt(h)) {
+                l--;
+                h++;
+            }
+            return str.substring(l +1, h);//substring的第二个参数为结束位的下一个，例如hello，取substring（1,2）为e   substring(1,3)为el
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
