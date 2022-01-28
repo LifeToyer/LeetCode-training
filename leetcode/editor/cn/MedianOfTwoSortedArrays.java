@@ -55,20 +55,20 @@
 // 
 // Related Topics 数组 二分查找 分治 👍 4924 👎 0
 
-  
+
 package leetcode.editor.cn;
 
-  public class MedianOfTwoSortedArrays{
-      public static void main(String[] args) {
-           Solution solution = new MedianOfTwoSortedArrays().new Solution();
-      }
-      
-         //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-
+public class MedianOfTwoSortedArrays {
+    public static void main(String[] args) {
+        Solution solution = new MedianOfTwoSortedArrays().new Solution();
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-  }
+}
