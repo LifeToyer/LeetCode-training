@@ -58,6 +58,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {//双指针解决问题
+
         public int lengthOfLongestSubstring(String s) {
             HashMap<Object, Integer> map = new HashMap<>();
             int max = 0;
@@ -67,13 +68,12 @@ public class LongestSubstringWithoutRepeatingCharacters {
             int j = 0;
             for (int i = 0; i < s.length(); i++) {
                 map.put(s.charAt(i), map.get(s.charAt(i)) + 1);
-                //如果指针i扫描到重复字符，则将指针j向前移动
-                if (map.get(s.charAt(i)) > 1) {
-                    while (map.get(s.charAt(i)) > 1 && j < i) {
-                        map.put(s.charAt(j), map.get(s.charAt(j)) - 1);
-                        j++;
-                    }
+                //如果指针i扫描到重复字符，则将指针j向前移动，收缩窗口
+                while (map.get(s.charAt(i)) > 1 && j < i) {
+                    map.put(s.charAt(j), map.get(s.charAt(j)) - 1);
+                    j++;
                 }
+
                 max = Math.max(max, i - j + 1);
             }
             return max;
