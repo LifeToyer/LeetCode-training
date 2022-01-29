@@ -55,21 +55,54 @@
 
 package leetcode.editor.cn;
 
+
 public class ZigzagConversion {
     public static void main(String[] args) {
         Solution solution = new ZigzagConversion().new Solution();
+        System.out.println(solution.convert("ABCD", 2));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String convert(String s, int numRows) {
-            int[][] out = new int[numRows][];
+            if (s.length() < 2 || numRows < 2) {
+                return s;
+            }
+            char[][] out = new char[numRows][];
             int row = 0;
             int col = 0;
-
-            for (int i = 0; i < s.length(); i++) {
-                out[row][col] = s.charAt(i);
+            for (int i = 0; i < out.length; i++) {
+                out[i] = new char[s.length() / 2 + 1];
             }
+            for (int i = 0; i < s.length(); i++) {
+                if (col % (numRows - 1) == 0 && row < numRows) {
+                    out[row][col] = s.charAt(i);
+                    row++;
+                } else if (row == numRows) {
+                    row--;
+                    row--;
+                    col++;
+                    out[row][col] = s.charAt(i);
+                    if (row > 0) {
+                        row--;
+                        col++;
+                    }else {
+                        row++;
+                    }
+                } else if (row > 0 && row < numRows) {
+                    out[row][col] = s.charAt(i);
+                    row--;
+                    col++;
+                }
+            }
+            String Out = "";
+            for (char[] i : out) {
+                for (char j : i) {
+                    if (j != '\u0000')
+                        Out = Out + j;
+                }
+            }
+            return Out;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
