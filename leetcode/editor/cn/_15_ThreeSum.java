@@ -63,13 +63,15 @@
 package leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class _15_ThreeSum {
     public static void main(String[] args) {
         Solution solution = new _15_ThreeSum().new Solution();
-        int[] nums = {-1,0,1,2,-1,-4};
+        int[] nums = {13,4,-6,-7,-15,-1,0,-1,0,-12,-12,9,3,-14,-2,-5,-6,7,8,2,-4,6,-5,-10,-4,-9,-14,-14,12,-13,-7,3,7,2,11,7,9,-4,13,-6,-1,-14,-12,9,9,-6,-11,10,-14,13,-2,-11,-4,8,-6,0,7,-12,1,4,12,9,14,-4,-3,11,10,-9,-8,8,0,-1,1,3,-15,-12,4,12,13,6,10,-4,10,13,12,12,-2,4,7,7,-15,-4,1,-15,8,5,3,3,11,2,-11,-12,-14,5,-1,9,0,-12,6,-1,1,1,2,-3};
         List<List<Integer>> lists = solution.threeSum(nums);
         System.out.println(lists);
     }
@@ -83,24 +85,42 @@ public class _15_ThreeSum {
         }
 
         public void dp(int[] nums, int k, int sum, int acc, List<Integer> arrays, LinkedList<List<Integer>> lists) {
-            sum += nums[acc];
-            arrays.add(nums[acc]);
-            if (k == 1) {
+            if (acc > nums.length){
+                return;
+            }
+            if (k == 0) {
                 if (sum == 0) {
                     //输出数组
                     ArrayList<Integer> arraysClone = new ArrayList<>(arrays);
-                    lists.add(arraysClone);
+                    boolean isSame = false;
+                    for (List e:lists) {
+                        if (isSameArrays(e,arraysClone)){
+                            isSame = true;
+                        }
+                    }
+                    if (!isSame){
+                        lists.add(arraysClone);
+                    }
                 } else {
                     return;
                 }
             } else {
-                while (acc < nums.length - 1) {
-                    dp(nums, --k, sum, acc + 1, arrays, lists);
+                while (acc < nums.length ) {
+                    sum += nums[acc];
+                    arrays.add(nums[acc]);
+                    dp(nums, --k, sum, acc+1, arrays, lists);
+                    sum -=nums[acc];
                     k++;
-                    acc++;
                     arrays.remove(arrays.size() - 1);
+                    acc++;
                 }
             }
+        }
+
+        public boolean isSameArrays(List<Integer> src,List<Integer> tar){
+            List<Integer> collect = src.stream().sorted().collect(Collectors.toList());
+            List<Integer> collect2 = tar.stream().sorted().collect(Collectors.toList());
+            return collect2.equals(collect);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
